@@ -25,5 +25,22 @@ public class RpcHelper {
 
 	}
 
+// Parses a JSONObject from http request.
+	public static JSONObject readJSONObject(HttpServletRequest request) {
+  	   StringBuilder sBuilder = new StringBuilder();
+  	   try (BufferedReader reader = request.getReader()) {
+  		 String line = null;
+  		 while((line = reader.readLine()) != null) {
+  			 sBuilder.append(line);
+  		 }
+  		 return new JSONObject(sBuilder.toString());
+  		
+  	   } catch (Exception e) {
+  		 e.printStackTrace();
+  	   }
+  	
+  	  return new JSONObject();
+    }
+
 }
 
