@@ -8,9 +8,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import entity.Item;
 
 
 public class TicketMasterClient {
@@ -79,5 +84,13 @@ public class TicketMasterClient {
 
 		return new JSONArray();
 	}
+	
+	// Convert JSONArray to a list of item objects.
+		private List<Item> getItemList(JSONArray events) throws JSONException {
+			List<Item> itemList = new ArrayList<>();
+
+			return itemList;
+		}
+
 	
 }
