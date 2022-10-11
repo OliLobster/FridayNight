@@ -83,7 +83,36 @@ public class MySQLConnection implements DBConnection {
 
 	@Override
 	public void saveItem(Item item) {
-		// TODO Auto-generated method stub
+		 if (conn == null) {
+	  		   System.err.println("DB connection failed");
+	  		   return;
+	  	         }
+	  	
+	  	 try {
+	  		 String sql = "INSERT IGNORE INTO items VALUES (?, ?, ?, ?, ?, ?, ?)";
+	  		 PreparedStatement ps = conn.prepareStatement(sql);
+	  		 ps.setString(1, item.getItemId());
+	  		 ps.setString(2, item.getName());
+	  		 ps.setDouble(3, item.getRating());
+	  		 ps.setString(4, item.getAddress());
+	  		 ps.setString(5, item.getImageUrl());
+	  		 ps.setString(6, item.getUrl());
+	  		 ps.setDouble(7, item.getDistance());
+	  		 ps.execute();
+
+	  		 sql = "INSERT IGNORE INTO categories VALUES(?, ?)";
+	  		 ps = conn.prepareStatement(sql);
+	                              // itemed 123
+	  		 ps.setString(1, item.getItemId());
+	                              // pop, music
+	  		 for(String category : item.getCategories()) {
+	  			 ps.setString(2, category);
+	  			 ps.execute();
+	  		 }
+	  		
+	  	 } catch (Exception e) {
+	  		 e.printStackTrace();
+	  	 }
 
 	}
 
