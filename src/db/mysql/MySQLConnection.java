@@ -11,6 +11,7 @@ import java.util.Set;
 
 import db.DBConnection;
 import entity.Item;
+import external.TicketMasterClient;
 
 public class MySQLConnection implements DBConnection {
 
@@ -69,8 +70,15 @@ public class MySQLConnection implements DBConnection {
 
 	@Override
 	public List<Item> searchItems(double lat, double lon, String term) {
-		// TODO Auto-generated method stub
-		return null;
+		TicketMasterClient ticketMasterClient = new TicketMasterClient();
+	        List<Item> items = ticketMasterClient.search(lat, lon, term);
+	
+	        for(Item item : items) {
+		 saveItem(item);
+	        }
+	
+	        return items;
+
 	}
 
 	@Override
